@@ -14,10 +14,6 @@ class VansahNode {
   private TESTFOLDERS_ID?: string;
   private CASE_KEY?: string;
 
-  constructor() {
-    console.info("Sending Results to Vansah: Initiated")
-  }
-
   setVansahUrl(vansahUrl: string): void {
     VansahNode.VANSAH_URL = vansahUrl;
   }
@@ -52,25 +48,32 @@ class VansahNode {
     payload?: object
   ): Promise<any> {
     const url = `${VansahNode.VANSAH_URL}/api/${VansahNode.API_VERSION}/${endpoint}`;
-    
+
     const config = {
       method: method,
       url: url,
-      headers: this.headers = {
+      headers: (this.headers = {
         Authorization: this.VANSAH_TOKEN,
         "Content-Type": "application/json",
-      },
+      }),
       data: payload,
     };
 
     try {
-      //  console.log("Payload:", config);
       const response = await axios(config);
       return response.data;
-      // return true;
     } catch (error: any) {
-      console.error("Error connecting to Vansah API:", error.message);
-      throw error;
+      if (error.errno == -3008) {
+        console.log(
+          `ERROR Code: ${error.errno} Provide correct Vansah URL : ${error.hostname}`
+        );
+      }
+      if (error.code === "ERR_BAD_REQUEST") {
+        console.error(
+          "Error connecting to Vansah API:",
+          error.response.data.message
+        );
+      }
     }
   }
 
@@ -104,7 +107,10 @@ class VansahNode {
     }
   }
 
-  async addQuickTestFromJiraIssue(testCase: string, result: string): Promise<void> {
+  async addQuickTestFromJiraIssue(
+    testCase: string,
+    result: string
+  ): Promise<void> {
     this.CASE_KEY = testCase;
     const payload = {
       case: { key: this.CASE_KEY },
@@ -120,7 +126,10 @@ class VansahNode {
     }
   }
 
-  async addQuickTestFromTestFolder(testCase: string, result: string): Promise<void> {
+  async addQuickTestFromTestFolder(
+    testCase: string,
+    result: string
+  ): Promise<void> {
     this.CASE_KEY = testCase;
     const payload = {
       case: { key: this.CASE_KEY },
@@ -143,7 +152,7 @@ class VansahNode {
     imagePath?: string
   ): Promise<void> {
     if (!this.TEST_RUN_IDENTIFIER) {
-      throw new Error("TEST_RUN_IDENTIFIER is not set. Create a test run first.");
+      console.error("TEST_RUN_IDENTIFIER is not set. Create a test run first.");
     }
 
     const payload: any = {
@@ -154,13 +163,23 @@ class VansahNode {
     };
 
     if (imagePath) {
-      payload.attachments = [
-        {
-          name: "screenshot",
-          extension: "png",
-          file: await this.encodeFileToBase64(imagePath),
-        },
-      ];
+      let imageResult = "";
+      const fs = await import("fs/promises");
+      try {
+        const fileData = await fs.readFile(imagePath);
+        imageResult = fileData.toString("base64");
+        payload.attachments = [
+          {
+            name: "screenshot",
+            extension: "png",
+            file: imageResult
+          },
+        ];
+  
+      } catch (error: any) {
+        console.error(`Please provide the correct Image Path : ${error}`);
+      }
+      
     }
 
     const response = await this.connectToVansahRest("logs", "POST", payload);
@@ -178,12 +197,6 @@ class VansahNode {
       UNTESTED: 3,
     };
     return resultMapping[result.toUpperCase()] || 0;
-  }
-
-  private async encodeFileToBase64(filePath: string): Promise<string> {
-    const fs = await import("fs/promises");
-    const fileData = await fs.readFile(filePath);
-    return fileData.toString("base64");
   }
 
   private getProperties(): object {

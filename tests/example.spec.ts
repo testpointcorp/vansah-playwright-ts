@@ -5,10 +5,7 @@ let TEST_CASE = "TF-C72"; // Replace with your test case key
 test.describe("Example Playwright Test with Vansah Integration", () => {
   test.beforeAll(async () => {
     // Create a test run before executing tests
-    i++;
     await vansahnode.addTestRunFromJiraIssue(TEST_CASE);
-    
-    console.log('Before tests : '+i);
   });
 
   test("Verify homepage title", async ({ page }) => {
@@ -23,14 +20,16 @@ test.describe("Example Playwright Test with Vansah Integration", () => {
       await vansahnode.addTestLog(
         "PASSED",
         "Homepage title is correct",
-        1 // Test step row number
+        1, // Test step row number
+        "sample\\images\\passed.png" // Provide your screenshot path
       );
     } catch (error) {
       // Log the test result as failed
       await vansahnode.addTestLog(
         "FAILED",
         `Homepage title verification failed: ${error.message}`,
-        1 // Test step row number
+        1, // Test step row number
+        "sample\images\\failed.png" // Provide your screenshot path
       );
       throw error; // Re-throw the error to ensure test failure
     }
@@ -53,14 +52,16 @@ test.describe("Example Playwright Test with Vansah Integration", () => {
       await vansahnode.addTestLog(
         "PASSED",
         "Link navigation is correct",
-        2 // Test step row number
+        2, // Test step row number
+        "sample\\images\\passed.png" // Provide your screenshot path
       );
     } catch (error) {
       // Log the test result as failed
       await vansahnode.addTestLog(
         "FAILED",
         `Link navigation failed: ${error.message}`,
-        2 // Test step row number
+        2, // Test step row number,
+        "sample\\images\\failed.png" // Provide your screenshot path
       );
       throw error; // Re-throw the error to ensure test failure
     }
