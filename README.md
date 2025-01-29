@@ -1,6 +1,13 @@
-# Vansah Playwright Integration
+<div align="center">
+   <a href="https://vansah.com"><img src="https://vansah.com/app/logo/vansahjira-logo.svg" /></a><br>
+</div>
 
-This repository provides an integration between Playwright and [Vansah Test Management](https://vansah.com) using TypeScript. It enables automated test logging, execution tracking, and Jira issue association directly from Playwright test scripts.
+<p align="center">This repository provides an integration between Playwright and [Vansah Test Management](https://vansah.com) using TypeScript. It enables automated test logging, execution tracking, and Jira issue association directly from Playwright test scripts.</p>
+
+<p align="center">
+    <a href="https://vansah.com/"><b>Website</b></a> •
+    <a href="https://vansah.com/connect-integrations/"><b>More Connect Integrations</b></a>
+</p>
 
 ## Table of Contents
 
