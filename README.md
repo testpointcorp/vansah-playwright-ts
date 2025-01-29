@@ -2,7 +2,7 @@
    <a href="https://vansah.com"><img src="https://vansah.com/app/logo/vansahjira-logo.svg" /></a><br>
 </div>
 
-<p align="center">This repository provides an integration between Playwright and [Vansah Test Management](https://vansah.com) using TypeScript. It enables automated test logging, execution tracking, and Jira issue association directly from Playwright test scripts.</p>
+<p align="center">This repository provides an integration between Playwright and <a href="https://vansah.com">Vansah Test Management for Jira</a> using TypeScript. It enables automated test logging, execution tracking, and Jira issue association directly from Playwright test scripts.</p>
 
 <p align="center">
     <a href="https://vansah.com/"><b>Website</b></a> •
