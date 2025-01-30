@@ -13,6 +13,7 @@
 
 - [Features](#features)
 - [Installation](#installation)
+- [Prerequisites](#prerequisites)
 - [Configuration](#configuration)
 - [Usage](#usage)
   - [Running Tests](#running-tests)
@@ -41,6 +42,10 @@ Before starting, ensure you have [Node.js](https://nodejs.org/) installed.
 ```sh
 npm install
 ```
+
+## Prerequisites
+- **Vansah API Token**: Obtain your [API token](https://help.vansah.com/en/articles/9824979-generate-a-vansah-api-token-from-jira) from your Jira workspace.
+- **Vansah URL**: The base URL for your Vansah instance (e.g., `https://prod.vansah.com`) or Obtain your [Vansah Connect URL](https://help.vansah.com/en/articles/10407923-vansah-api-connect-url) from Vansah API Tokens
 
 ## Configuration
 
