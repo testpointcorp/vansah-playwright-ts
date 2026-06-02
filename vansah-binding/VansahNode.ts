@@ -9,10 +9,10 @@ class VansahNode {
   /**
    * API version used for Vansah API calls
    */
-  private static API_VERSION: string = "v1";
+  private static API_VERSION: string = "v2";
 
   /**
-   * Base URL for Vansah API
+   * Base URL for Vansah API - Set the Vansah API base URL or Obtain your Vansah Connect URL (https://help.vansah.com/en/articles/10407923-vansah-api-connect-url)
    */
   private static VANSAH_URL: string = "https://prod.vansahnode.app";
 
